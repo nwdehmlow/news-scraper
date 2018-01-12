@@ -40,7 +40,7 @@ app.use('/', routes);
 
 //connect with mongoose
 
-mongoose.connect('mongodb://')
+mongoose.connect('mongodb://heroku_2lx3vfpf:4h2j2j798vrcqc84v6bvq6ea21@ds255347.mlab.com:55347/heroku_2lx3vfpf')
 
 var db = mongoose.connection;
 
