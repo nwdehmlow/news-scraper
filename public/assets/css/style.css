@@ -1,9 +1,22 @@
+@font-face {
+font-family: Windsor;
+src: url("WindsorBTRoman.ttf");
+}
+
+body{
+    font-family: 'Helvetica Neue';
+    font-weight: bold;
+}
+
 html {
 	font-size: 12px;
 }
 
+
+
 li { 
     margin-bottom: 1%;
+    color:#505050;
 }
 
 p {
@@ -12,37 +25,66 @@ p {
 	margin-top: 1%;
 }
 
+#home{
+    font-family: Windsor;
+    color: #505050;
+}
+
 #bodyinput {
     width: 50%;
 }
 
-.jumbotron {
-	overflow: hidden;
-    background-size: 50%;
-    background-position: center;
-    background-image: url('../images/newspaper.png');
+.backgroundpic {
+    border-radius: 6px;
+    background-image: url('../images/bg.jpg');
     background-repeat: no-repeat;
-    height: 400px;
-    width: 100%;
+    height: 360px;
+    width: 95%;
+    font-family: Windsor;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.panel-heading.row {
-	width: 100%;
-    margin-left: 0%;
+.layer {
+    background-color: rgba(40, 40, 40, 0.7);
+    height: 360px;
+    border-radius: 6px;
 }
 
-.panel-primary {
-    height: 135px;
+.jumbotron{
+    background-color: transparent;
+}
+
+
+.navbar{
+    color: #282828;
+    background-color: white;
+}
+
+.btn{
+    font-weight: bold;
+    color:#444444;
+    background-color: #e2e2e2;
+    letter-spacing: 1.5px;
 }
 
 #savenote {
     display: block;
 }
 
-/* 
-  These rules take effect when the browser's width
-  is 640px or less.
-*/
+.card-body{
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f7f7f7;
+    width: 65%;
+    padding: 12px;
+    margin-bottom:20px;
+    border-radius: 8px;
+    font-family: 'Helvetica Neue'
+}
+
+
 @media screen and (max-width: 640px) {
 	
 }

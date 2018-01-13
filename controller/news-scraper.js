@@ -35,37 +35,39 @@ router.get("/saved", function(req, res) {
 	});
 });
 
-//GET request to scrape BBC site
-router.post("/scrape", function(req, res){
+router.post("/scrape", function(req, res) {
 
-	request("http://www.bbc.com/news/", function(error, response, html){
+  // First, we grab the body of the html with request
+  request("http://www.nytimes.com/", function(error, response, html) {
+    // Then, we load that into cheerio and save it to $ for a shorthand selector
+    var $ = cheerio.load(html);
 
-		var $ = cheerio.load(html);
+    // Make emptry array for temporarily saving and showing scraped Articles.
+    var scrapedArticles = {};
+    // Now, we grab every h2 within an article tag, and do the following:
+    $("article h2").each(function(i, element) {
 
-		var scrapedArticles = {};
+      // Save an empty result object
+      var result = {};
 
-		$("article h2").each(function(i, element){
-			
-			var result = {};
+      // Add the text and href of every link, and save them as properties of the result object
+      result.title = $(this).children("a").text();      
+      result.link = $(this).children("a").attr("href");
 
-			result.title = $(this).children("a").text();
+      scrapedArticles[i] = result;
 
-			console.log("What's the result title?" + result.title)	
+    });
 
-			result.title = $(this).children("a").attr("href");
+    console.log("Scraped Articles object: " + scrapedArticles);
 
-			scrapedArticles[i] = result;
+    var hbsArticleObject = {
+        articles: scrapedArticles
+    };
 
-		});
+    res.render("index", hbsArticleObject);
 
-		console.log("Scraped articles object built nicely: " + scrapedArticles);
+  });
 
-		var hbsArticleObject = {articles: scrapedArticles};
-
-		res.render("index", hbsArticleObject);
-
-	
-	});
 });
 
 router.post("/save", function(req,res){
@@ -84,7 +86,7 @@ router.post("/save", function(req,res){
 
 	entry.save(function(err, doc){
 
-		if(error) {
+		if(err) {
 			console.log(err);
 		}
 
@@ -96,6 +98,20 @@ router.post("/save", function(req,res){
 	res.redirect("/saved");
 
 });
+
+
+
+router.get("/delete/:id", function(req,res){
+
+	Article.findOneAndRemove({"_id": req.params.id}, function(err, offer){
+
+		if(err){
+			console.log("Unable to delete: " + err);
+		}
+
+		res.redirect("/saved");
+	})
+})
 
 
 router.get("/notes/:id", function(req,res){
